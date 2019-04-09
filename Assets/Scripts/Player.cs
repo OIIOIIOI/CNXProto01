@@ -194,14 +194,16 @@ public class Player : MonoBehaviour
     protected void SpawnBullet ()
     {
         float facing = facingRight ? 1f : -1f;
-        
-        Vector3 spawn = transform.TransformPoint(weapon.GetShotSpawnPosition(facing));
 
-        GameObject b = GameObject.Instantiate(weapon.shotPrefab, spawn, Quaternion.identity);
-        b.GetComponent<SpriteRenderer>().flipX = !facingRight;
-        b.GetComponent<SpriteRenderer>().color = weapon.shotColor;
-        b.transform.localScale = new Vector3(weapon.shotSize, weapon.shotSize, 1f);
-        b.GetComponent<Rigidbody2D>().velocity = weapon.GetShotVelocity(facing);
+        for (int i = 0; i < weapon.burstShots; i++)
+        {
+            Vector3 spawn = transform.TransformPoint(weapon.GetShotSpawnPosition(facing));
+            GameObject b = GameObject.Instantiate(weapon.shotPrefab, spawn, Quaternion.identity);
+            b.GetComponent<SpriteRenderer>().flipX = !facingRight;
+            b.GetComponent<SpriteRenderer>().color = weapon.shotColor;
+            b.transform.localScale = new Vector3(weapon.shotSize, weapon.shotSize, 1f);
+            b.GetComponent<Rigidbody2D>().velocity = weapon.GetShotVelocity(facing);
+        }
 
         //float recoil = CheckForGrounded() ? 4f : 10f;// do it better by allowing to exceed maxSpeed (dampen recoil over time?)
         moveVector.x = Mathf.MoveTowards(moveVector.x, moveVector.x - weapon.GetRecoil(facing), 200f);

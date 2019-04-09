@@ -7,6 +7,7 @@ public class Weapon : MonoBehaviour
 
     public GameObject shotPrefab;
     public float shotsPerSecond = 1f;
+    public int burstShots = 1;
     public float shotSpeed = 22f;
     public float shotSize = 1f;
     public Color32 shotColor = new Color32(255, 255, 255, 255);
@@ -28,7 +29,11 @@ public class Weapon : MonoBehaviour
     {
         Vector3 basePosition = new Vector3(shotSpawnX * facing, shotSpawnY, 0f);
         if (shotSpawnAccuracy < 1f)
-            return basePosition + new Vector3(Random.Range(-(1f - shotSpawnAccuracy), (1f - shotSpawnAccuracy)), Random.Range(-(1f - shotSpawnAccuracy), (1f - shotSpawnAccuracy)), 0f);
+        {
+            float ax = 0.5f * (1f - shotSpawnAccuracy);
+            float ay = 0.15f * (1f - shotSpawnAccuracy);
+            return basePosition + new Vector3(Random.Range(0f, ax), Random.Range(-ay, ay), 0f);
+        }
         return basePosition;
     }
 
@@ -38,7 +43,7 @@ public class Weapon : MonoBehaviour
         if (directionAccuracy < 1f)
         {
             float a = 2f * (1f - directionAccuracy);
-            return basePosition + new Vector3(Random.Range(-a, a), Random.Range(-a, a), 0f);
+            return basePosition + new Vector3(0f, Random.Range(-a, a), 0f);
         }
         return basePosition;
     }
