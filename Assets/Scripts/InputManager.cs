@@ -87,14 +87,14 @@ public class InputManager : MonoBehaviour
         // Update axis
         for (int i = 0; i < axisNames.Length; i++)
         {
-            name = axisNames[i];
+            string name = axisNames[i];
             axis[name] = Input.GetAxis(name);
         }
 
         // Update buttons
         for (int i = 0; i < buttonNames.Length; i++)
         {
-            name = buttonNames[i];
+            string name = buttonNames[i];
             pressed[name] = Input.GetButtonDown(name);
             held[name] = Input.GetButton(name);
             released[name] = Input.GetButtonUp(name);

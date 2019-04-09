@@ -64,6 +64,9 @@
     <Compile Include="Assets\BlinkingText.cs" />
     <Compile Include="Assets\Scripts\Bullet.cs" />
     <Compile Include="Assets\Scripts\Character2D.cs" />
+    <Compile Include="Assets\Scripts\Drop.cs" />
+    <Compile Include="Assets\Scripts\Dropper.cs" />
+    <Compile Include="Assets\Scripts\DyingParticles.cs" />
     <Compile Include="Assets\Scripts\EnemyA.cs" />
     <Compile Include="Assets\Scripts\EnemySpawn.cs" />
     <Compile Include="Assets\Scripts\FuturoScript.cs" />

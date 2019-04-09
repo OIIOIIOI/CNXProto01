@@ -89,7 +89,7 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    void DieForReal ()
+    void DieForReal()
     {
         Destroy(this.gameObject);
     }

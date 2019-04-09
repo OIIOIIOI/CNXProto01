@@ -83,8 +83,6 @@ public class Player : MonoBehaviour
             {
                 // Start shooting
                 shootingCoroutine = StartCoroutine(Shoot());
-                // Zoom
-                //cameraShaker.Zoom(5f);
                 // Activate 4D effects
                 if (IRLSFXOMG != null)
                     IRLSFXOMG.Activate4D(FuturoScript.Message4D.Shoot);
@@ -95,8 +93,6 @@ public class Player : MonoBehaviour
             // Stop shooting
             StopCoroutine(shootingCoroutine);
             shootingCoroutine = null;
-            // Dezoom
-            //cameraShaker.Zoom(6f);
             // Deactivate 4D effects
             if (IRLSFXOMG != null)
             {
