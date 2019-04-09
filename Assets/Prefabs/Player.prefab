@@ -128,7 +128,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 1000
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -177,7 +177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   groundedLayerMask:
     serializedVersion: 2
-    m_Bits: 1792
+    m_Bits: 256
 --- !u!114 &3360842761973985843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,6 +190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2e66d65168de464388498a35304ef73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerNum: 0
   maxSpeed: 8
   acceleration: 200
   deceleration: 200
@@ -197,10 +198,10 @@ MonoBehaviour:
   airDecelerationRatio: 1.5
   gravity: 50
   jumpSpeed: 14
+  weapon: {fileID: 5172904988746984648, guid: f46beb269e16fc94fb20173dd1c16491, type: 3}
   bullet: {fileID: 1079252939854437569, guid: 86242c7078507814e8e472e7217d3e22, type: 3}
   bulletSpawnRight: {fileID: 2566456975999288348}
   bulletSpawnLeft: {fileID: 4363038242588904534}
-  infoText: {fileID: 0}
 --- !u!114 &143249481
 MonoBehaviour:
   m_ObjectHideFlags: 0

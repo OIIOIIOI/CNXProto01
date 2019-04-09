@@ -26,8 +26,8 @@ public class Shaker : MonoBehaviour
             lastVector = Random.insideUnitCircle * shakeIntensity;
             transform.localPosition = transform.localPosition + lastVector;
 
-            lastRotation = Random.Range(-2, 2);
-            cineCam.m_Lens.Dutch = lastRotation;
+            //lastRotation = Random.Range(-2, 2);
+            //cineCam.m_Lens.Dutch = lastRotation;
         }
     }
 
@@ -43,8 +43,8 @@ public class Shaker : MonoBehaviour
             transform.localPosition = transform.localPosition - lastVector;
             sinceShakeTime -= Time.deltaTime;
         }
-        else
-            cineCam.m_Lens.Dutch = 0;
+        //else
+            //cineCam.m_Lens.Dutch = 0;
     }
 
     public void Shake (float amount, float time)

@@ -9,36 +9,36 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
 
+    public enum players {
+        Player1,
+        Player2
+    };
+
+    public players playerNum = players.Player1;
+    string playerPrefix;
+
     public float maxSpeed = 10f;
     public float acceleration = 50f;
     public float deceleration = 100f;
     public float airAccelerationRatio = 0.5f;
     public float airDecelerationRatio = 2f;
     public float gravity = 50f;
-    public float jumpSpeed = 10f;
+    public float jumpSpeed = 14.5f;
     protected bool canJump = true;
 
-    public GameObject bullet;
-    public Transform bulletSpawnRight;
-    public Transform bulletSpawnLeft;
-    protected float shotsPerSecond = 20f;
-    protected float bulletSpeed = 20f;
+    public Weapon weapon;
 
     protected bool facingRight = true;
 
     protected Character2D character;
     protected Vector2 moveVector;
     protected SpriteRenderer spriteRenderer;
-
-    protected float shotSpawnGap;
-    protected WaitForSeconds shotSpawnWait;   
+    
     protected Coroutine shootingCoroutine;
     protected float nextShotTime;
 
     protected Shaker cameraShaker;
     protected FuturoScript IRLSFXOMG;
-    
-    public Text infoText;
 
     void Awake ()
     {
@@ -51,9 +51,8 @@ public class Player : MonoBehaviour
 
     void Start ()
     {
-        shotSpawnGap = 1f / shotsPerSecond;
         nextShotTime = Time.time;
-        shotSpawnWait = new WaitForSeconds(shotSpawnGap);
+        playerPrefix = (playerNum == players.Player1) ? "P1" : "P2";
     }
 
     void Update ()
@@ -64,7 +63,7 @@ public class Player : MonoBehaviour
             GroundedHorizontalMovement();
             GroundedVerticalMovement();
             // Jump
-            if (canJump && InputManager.Instance.IsHeld(InputManager.Button.Jump))
+            if (canJump && InputManager.Instance.IsHeld(playerPrefix + "Jump"))
             {
                 canJump = false;
                 moveVector.y = jumpSpeed;
@@ -78,14 +77,14 @@ public class Player : MonoBehaviour
         }
 
         // If shooting
-        if (InputManager.Instance.IsHeld(InputManager.Button.Fire1))
+        if (InputManager.Instance.IsHeld(playerPrefix + "Fire"))
         {
             if (shootingCoroutine == null)
             {
                 // Start shooting
                 shootingCoroutine = StartCoroutine(Shoot());
                 // Zoom
-                cameraShaker.Zoom(5f);
+                //cameraShaker.Zoom(5f);
                 // Activate 4D effects
                 if (IRLSFXOMG != null)
                     IRLSFXOMG.Activate4D(FuturoScript.Message4D.Shoot);
@@ -93,11 +92,11 @@ public class Player : MonoBehaviour
         }
         else if (shootingCoroutine != null)
         {
-            // Start shooting
+            // Stop shooting
             StopCoroutine(shootingCoroutine);
             shootingCoroutine = null;
             // Dezoom
-            cameraShaker.Zoom(6f);
+            //cameraShaker.Zoom(6f);
             // Deactivate 4D effects
             if (IRLSFXOMG != null)
             {
@@ -107,13 +106,8 @@ public class Player : MonoBehaviour
         }
 
         // Reset jump
-        if (!canJump && !InputManager.Instance.IsHeld(InputManager.Button.Jump))
+        if (!canJump && !InputManager.Instance.IsHeld(playerPrefix + "Jump"))
             canJump = true;
-
-        infoText.text = "Pressed: " + InputManager.Instance.IsPressed(InputManager.Button.Jump) + "\n";
-        infoText.text += "Held: " + InputManager.Instance.IsHeld(InputManager.Button.Jump) + "\n";
-        infoText.text += "Released: " + InputManager.Instance.IsReleased(InputManager.Button.Jump) + "\n";
-        infoText.text += "H axis: " + InputManager.Instance.GetAxis(InputManager.Axis.Horizontal).ToString() + "\n";
     }
 
     void BackToAmbient ()
@@ -137,7 +131,7 @@ public class Player : MonoBehaviour
 
     public void GroundedHorizontalMovement ()
     {
-        float input = InputManager.Instance.GetAxis(InputManager.Axis.Horizontal);
+        float input = InputManager.Instance.GetAxis(playerPrefix + "HorizontalPad");
         float desiredSpeed = input * maxSpeed;
         float ratio = (input != 0) ? acceleration : deceleration;
         moveVector.x = Mathf.MoveTowards(moveVector.x, desiredSpeed, ratio * Time.deltaTime);
@@ -155,7 +149,7 @@ public class Player : MonoBehaviour
 
     public void AirborneHorizontalMovement ()
     {
-        float input = InputManager.Instance.GetAxis(InputManager.Axis.Horizontal);
+        float input = InputManager.Instance.GetAxis(playerPrefix + "HorizontalPad");
         float desiredSpeed = input * maxSpeed;
         float ratio = (input != 0) ? acceleration * airAccelerationRatio : deceleration * airDecelerationRatio;
         moveVector.x = Mathf.MoveTowards(moveVector.x, desiredSpeed, ratio * Time.deltaTime);
@@ -183,15 +177,15 @@ public class Player : MonoBehaviour
 
     protected IEnumerator Shoot ()
     {
-        while (InputManager.Instance.IsHeld(InputManager.Button.Fire1))
+        while (InputManager.Instance.IsHeld(playerPrefix + "Fire"))
         {
             if (Time.time >= nextShotTime)
             {
                 SpawnBullet();
-                nextShotTime = Time.time + shotSpawnGap;
+                nextShotTime = Time.time + weapon.GetShotSpawnDelay();
 
                 if (cameraShaker != null)
-                    cameraShaker.Shake(0.15f, 0.2f);
+                    cameraShaker.Shake(0.4f * weapon.visualPower, 0.4f * weapon.visualPower);
             }
             yield return null;
         }
@@ -200,18 +194,17 @@ public class Player : MonoBehaviour
     protected void SpawnBullet ()
     {
         float facing = facingRight ? 1f : -1f;
+        
+        Vector3 spawn = transform.TransformPoint(weapon.GetShotSpawnPosition(facing));
 
-        Vector2 spawn = facingRight ? bulletSpawnRight.position : bulletSpawnLeft.position;
-        spawn.x += Random.Range(-0.1f, 0.1f);
-        spawn.y += Random.Range(-0.1f, 0.1f);
-
-        GameObject b = GameObject.Instantiate(bullet, spawn, Quaternion.identity);
+        GameObject b = GameObject.Instantiate(weapon.shotPrefab, spawn, Quaternion.identity);
         b.GetComponent<SpriteRenderer>().flipX = !facingRight;
-        b.GetComponent<Rigidbody2D>().velocity = new Vector2(bulletSpeed * facing, Random.Range(-2f, 2f));
+        b.GetComponent<SpriteRenderer>().color = weapon.shotColor;
+        b.transform.localScale = new Vector3(weapon.shotSize, weapon.shotSize, 1f);
+        b.GetComponent<Rigidbody2D>().velocity = weapon.GetShotVelocity(facing);
 
         //float recoil = CheckForGrounded() ? 4f : 10f;// do it better by allowing to exceed maxSpeed (dampen recoil over time?)
-        float recoil = 4f;
-        moveVector.x = Mathf.MoveTowards(moveVector.x, moveVector.x - recoil * facing, 200f);
+        moveVector.x = Mathf.MoveTowards(moveVector.x, moveVector.x - weapon.GetRecoil(facing), 200f);
     }
 
 }

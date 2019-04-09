@@ -51,10 +51,27 @@ public class Bullet : MonoBehaviour
 
         if (alive && Physics2D.IsTouching(bulletCollider, contactFilter))
         {
+            Collider2D[] targets = new Collider2D[1];
+            Physics2D.GetContacts(bulletCollider, contactFilter, targets);
+            if (targets.Length > 0)
+            {
+                Collider2D coll = targets[0];
+                switch (coll.tag)
+                {
+                    case "Player":
+                        //Debug.Log("hit player");
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+
             alive = false;
             bulletCollider.enabled = false;
             spriteRenderer.enabled = false;
-            particles.Play();
+            if (particles != null)
+                particles.Play();
             Invoke("Die", 2f);
         }
     }

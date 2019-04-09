@@ -35,14 +35,18 @@ public class InputManager : MonoBehaviour
 
     public enum Axis
     {
-        Horizontal,
-        Vertical,
+        P1Horizontal,
+        P1HorizontalPad,
+        P2Horizontal,
+        P2HorizontalPad,
     }
 
     public enum Button
     {
-        Fire1,
-        Jump,
+        P1Fire,
+        P1Jump,
+        P2Fire,
+        P2Jump,
     }
 
     protected string[] axisNames;
@@ -98,14 +102,15 @@ public class InputManager : MonoBehaviour
     }
 
     public float GetAxis (Axis name) { return axis[name.ToString()]; }
+    public float GetAxis (string name) { return axis[name]; }
 
     public bool IsPressed (Button name) { return pressed[name.ToString()]; }
+    public bool IsPressed (string name) { return pressed[name]; }
+
     public bool IsHeld (Button name) { return held[name.ToString()]; }
+    public bool IsHeld (string name) { return held[name]; }
+
     public bool IsReleased (Button name) { return released[name.ToString()]; }
-
-    public void Test ()
-    {
-
-    }
+    public bool IsReleased (string name) { return released[name]; }
 
 }

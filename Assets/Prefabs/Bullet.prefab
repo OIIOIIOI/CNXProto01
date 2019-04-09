@@ -95,7 +95,7 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.0001
   m_LinearDrag: 0
   m_AngularDrag: 0.05
   m_GravityScale: 0
@@ -134,7 +134,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hittableLayers:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 768
   spriteRenderer: {fileID: 1079252939854437571}
   bulletCollider: {fileID: 6952952770172443757}
   particles: {fileID: 7302621011225388427}
@@ -149,6 +149,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: BulletParticles
+      objectReference: {fileID: 0}
+    - target: {fileID: 3660875971182738012, guid: 6cdc87ddd1615f54d97273743b0aa864,
+        type: 3}
+      propertyPath: looping
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3660875971182738012, guid: 6cdc87ddd1615f54d97273743b0aa864,
+        type: 3}
+      propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3660875971182737987, guid: 6cdc87ddd1615f54d97273743b0aa864,
         type: 3}

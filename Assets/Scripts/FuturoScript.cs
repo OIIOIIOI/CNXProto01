@@ -48,7 +48,16 @@ public class FuturoScript : MonoBehaviour
     {
         //Open("COM10");
         foreach (string port in SerialPort.GetPortNames())
-            Open(port);
+        {
+            try
+            {
+                Open(port);
+            }
+            catch (Exception e)
+            {
+                //Debug.Log("Exception");
+            }
+        }
     }
 
     void Start ()
@@ -88,7 +97,14 @@ public class FuturoScript : MonoBehaviour
     {
         stream = new SerialPort("\\\\.\\" + autoport, 115200);
         stream.ReadTimeout = 50;
-        stream.Open();
+        try
+        {
+            stream.Open();
+        }
+        catch (Exception e)
+        {
+            //Debug.Log("Exception");
+        }
     }
 
     void Write (string command)
