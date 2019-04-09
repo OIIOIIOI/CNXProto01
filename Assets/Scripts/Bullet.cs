@@ -16,6 +16,9 @@ public class Bullet : MonoBehaviour
     protected float timer;
     protected ContactFilter2D contactFilter;
 
+    [HideInInspector]
+    public int damage = 1;
+
     private void OnEnable()
     {
         timer = 0.0f;
@@ -60,6 +63,13 @@ public class Bullet : MonoBehaviour
                 {
                     case "Player":
                         //Debug.Log("hit player");
+                        break;
+
+                    case "Enemy":
+                        //Debug.Log("hit enemy");
+                        HealthLife hl = coll.gameObject.GetComponent<HealthLife>();
+                        if (hl != null)
+                            hl.TakeHit(damage);
                         break;
 
                     default:

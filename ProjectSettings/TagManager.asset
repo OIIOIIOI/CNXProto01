@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -15,8 +16,8 @@ TagManager:
   - 
   - Ground
   - Players
+  - Enemies
   - Bullets
-  - 
   - 
   - 
   - 
@@ -43,6 +44,9 @@ TagManager:
     locked: 0
   - name: Ground
     uniqueID: 2163585101
+    locked: 0
+  - name: Enemies
+    uniqueID: 33747663
     locked: 0
   - name: Players
     uniqueID: 3825588175

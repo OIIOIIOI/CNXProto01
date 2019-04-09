@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 9074018531035904352}
   - component: {fileID: 5672165062189223632}
   - component: {fileID: 722837130820389383}
-  m_Layer: 10
+  m_Layer: 11
   m_Name: BasicBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -69,7 +69,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2079842771
-  m_SortingLayer: 3
+  m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 8685059f144598f409267b210e7b945f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hittableLayers:
     serializedVersion: 2
-    m_Bits: 768
+    m_Bits: 1792
   spriteRenderer: {fileID: 2319366393285840510}
   bulletCollider: {fileID: 5672165062189223632}
   particles: {fileID: 0}

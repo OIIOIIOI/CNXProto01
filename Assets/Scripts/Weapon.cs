@@ -19,6 +19,7 @@ public class Weapon : MonoBehaviour
     public float directionAccuracy = 1f;
     [Range(0f, 1f)]
     public float visualPower = 0f;
+    public int shotDamage = 1;
     
     public float GetShotSpawnDelay ()
     {

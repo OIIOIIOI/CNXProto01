@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyA : Character2D
+[RequireComponent(typeof(Character2D))]
+
+public class EnemyA : MonoBehaviour
 {
 
     void Start()
@@ -13,6 +15,11 @@ public class EnemyA : Character2D
     void Update()
     {
         
+    }
+
+    public void Die ()
+    {
+        Destroy(gameObject);
     }
 
 }

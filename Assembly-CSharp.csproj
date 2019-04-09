@@ -67,6 +67,7 @@
     <Compile Include="Assets\Scripts\EnemyA.cs" />
     <Compile Include="Assets\Scripts\EnemySpawn.cs" />
     <Compile Include="Assets\Scripts\FuturoScript.cs" />
+    <Compile Include="Assets\Scripts\HealthLife.cs" />
     <Compile Include="Assets\Scripts\InputManager.cs" />
     <Compile Include="Assets\Scripts\Player.cs" />
     <Compile Include="Assets\Scripts\Shaker.cs" />

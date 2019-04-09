@@ -203,6 +203,7 @@ public class Player : MonoBehaviour
             b.GetComponent<SpriteRenderer>().color = weapon.shotColor;
             b.transform.localScale = new Vector3(weapon.shotSize, weapon.shotSize, 1f);
             b.GetComponent<Rigidbody2D>().velocity = weapon.GetShotVelocity(facing);
+            b.GetComponent<Bullet>().damage = weapon.shotDamage;
         }
 
         //float recoil = CheckForGrounded() ? 4f : 10f;// do it better by allowing to exceed maxSpeed (dampen recoil over time?)
