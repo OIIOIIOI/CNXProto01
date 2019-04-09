@@ -25,7 +25,7 @@ MonoBehaviour:
   m_MinSize: {x: 787, y: 498}
   m_MaxSize: {x: 18008, y: 14048}
   vertical: 0
-  controlID: 22755
+  controlID: 27951
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -163,7 +163,7 @@ MonoBehaviour:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
-      m_ExpandedIDs: 0835fbff1a35fbff2035fbff2c36fbff3e36fbfff837fbff16bffbff9023fdff50eefeff48effeffe8effeff0af4feffb6f4feffacf5feff5cf6feff50f7feffe2f7feff86f8feffc0f8feff48f9feff9afafeffbafbfeff942cffffc856ffffd667ffffa868ffff986cffff5a6dffffa26effffb26fffff5872ffff6e72ffff72fbffffd4fbffff742d00008e3e0000b43e0000e43e0000543f00007a3f0000b03f00006e41000094410000ca410000be490000144a00008a4b0000e24b0000e64b0000904c0000e84c0000ec4c0000864d0000ac4d0000ee4d0000f24d000062500000ba500000be50000052b60000
+      m_ExpandedIDs: 0835fbff1a35fbff2035fbff2c36fbff3e36fbfff837fbff16bffbff9023fdff50eefeff48effeffe8effeff0af4feffb6f4feffacf5feff5cf6feff50f7feffe2f7feff86f8feffc0f8feff48f9feff9afafeffbafbfeff942cffffc856ffffd667ffffa868ffff986cffff5a6dffffa26effffb26fffff5872ffff6e72ffff72fbffffd4fbffff742d00008e3e0000b43e0000e43e0000543f00007a3f0000b03f00006e41000094410000ca410000be490000144a00008a4b0000e24b0000e64b0000904c0000e84c0000ec4c0000864d0000ac4d0000ee4d0000f24d000062500000ba500000be5000002cb6000042b6000052b6000056b60000
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -211,7 +211,7 @@ MonoBehaviour:
   m_MinSize: {x: 308, y: 498}
   m_MaxSize: {x: 10004, y: 14048}
   vertical: 1
-  controlID: 22756
+  controlID: 27952
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -236,7 +236,7 @@ MonoBehaviour:
   m_MinSize: {x: 308, y: 224}
   m_MaxSize: {x: 8008, y: 4024}
   vertical: 0
-  controlID: 22735
+  controlID: 27953
 --- !u!114 &7
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -434,19 +434,19 @@ MonoBehaviour:
     m_ShowAllHits: 0
     m_SearchArea: 1
     m_Folders:
-    - Assets/Prefabs
+    - Assets/Prefabs/Particles
   m_ViewMode: 1
   m_StartGridSize: 96
   m_LastFolders:
-  - Assets/Prefabs
+  - Assets/Prefabs/Particles
   m_LastFoldersGridSize: 96
   m_LastProjectPath: D:\Projects\Unity\CNXProto01
   m_LockTracker:
     m_IsLocked: 0
   m_FolderTreeState:
     scrollPos: {x: 0, y: 0}
-    m_SelectedIDs: 902c0000
-    m_LastClickedID: 11408
+    m_SelectedIDs: 3ad00000
+    m_LastClickedID: 53306
     m_ExpandedIDs: 00000000b6280000282a0000902c000000ca9a3b
     m_RenameOverlay:
       m_UserAcceptedRename: 0

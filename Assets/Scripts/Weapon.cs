@@ -31,7 +31,7 @@ public class Weapon : MonoBehaviour
         Vector3 basePosition = new Vector3(shotSpawnX * facing, shotSpawnY, 0f);
         if (shotSpawnAccuracy < 1f)
         {
-            float ax = 0.5f * (1f - shotSpawnAccuracy);
+            float ax = 0.5f * (1f - shotSpawnAccuracy) * facing;
             float ay = 0.15f * (1f - shotSpawnAccuracy);
             return basePosition + new Vector3(Random.Range(0f, ax), Random.Range(-ay, ay), 0f);
         }

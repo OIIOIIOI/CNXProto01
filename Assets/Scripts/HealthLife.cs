@@ -8,6 +8,8 @@ public class HealthLife : MonoBehaviour
 
     public int hitPoints = 1;
     public int lives = 1;
+    public UnityEvent hitCallbacks;
+    public UnityEvent lifeLostCallbacks;
     public UnityEvent deathCallbacks;
 
     protected int startingHitPoints;
@@ -20,23 +22,32 @@ public class HealthLife : MonoBehaviour
     public void TakeHit (int damage = 1)
     {
         hitPoints -= damage;
+        //Debug.Log("TH: " + hitPoints + " HP left, " + lives + " lives left");
+
+        bool isDead = false;
+
         if (hitPoints <= 0)
-            LoseLife();
-        Debug.Log("TH: " + hitPoints + " HP left, " + lives + " lives left");
+            isDead = LoseLife();
+
+        if (!isDead)
+            hitCallbacks.Invoke();
     }
 
-    public void LoseLife ()
+    public bool LoseLife ()
     {
         lives -= 1;
+
         if (lives <= 0)
             Die();
         else
             hitPoints = startingHitPoints;
+
+        lifeLostCallbacks.Invoke();
+        return lives > 0;
     }
 
     void Die ()
     {
-        Debug.Log("DEATH");
         deathCallbacks.Invoke();
     }
 

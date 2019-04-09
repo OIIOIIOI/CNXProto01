@@ -78,15 +78,18 @@ public class Bullet : MonoBehaviour
             }
 
             alive = false;
+
             bulletCollider.enabled = false;
             spriteRenderer.enabled = false;
+
             if (particles != null)
                 particles.Play();
-            Invoke("Die", 2f);
+
+            Invoke("DieForReal", 2f);
         }
     }
 
-    void Die ()
+    void DieForReal ()
     {
         Destroy(this.gameObject);
     }
