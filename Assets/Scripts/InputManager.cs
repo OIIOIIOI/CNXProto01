@@ -35,82 +35,95 @@ public class InputManager : MonoBehaviour
 
     public enum Axis
     {
-        P1Horizontal,
-        P1HorizontalPad,
-        P2Horizontal,
-        P2HorizontalPad,
+        Horizontal,
     }
 
-    public enum Button
+    public enum Buttons
     {
-        P1Fire,
-        P1Jump,
-        P2Fire,
-        P2Jump,
+        Fire,
+        Jump,
     }
 
+    public enum Controllers
+    {
+        Keyboard,
+        Xbox360,
+        Arcade
+    }
+
+    public Controllers controllerChoice = Controllers.Keyboard;
+    string controllerPrefix;
+
+    protected string[] playersNames;
     protected string[] axisNames;
-    protected string[] buttonNames;
+    protected string[] buttonsNames;
 
     protected Dictionary<string, float> axis;
     protected Dictionary<string, bool> pressed;
     protected Dictionary<string, bool> held;
     protected Dictionary<string, bool> released;
 
+    protected List<string> axisKeys;
+    protected List<string> buttonsKeys;
+
     private void Awake ()
     {
+        // Get chosen controller
+        controllerPrefix = controllerChoice.ToString();
+
         // List enums
         axisNames = System.Enum.GetNames(typeof(Axis));
-        buttonNames = System.Enum.GetNames(typeof(Button));
+        buttonsNames = System.Enum.GetNames(typeof(Buttons));
+        playersNames = System.Enum.GetNames(typeof(Player.Players));
 
         // Init axis
         axis = new Dictionary<string, float>();
-        // Populate axis
-        for (int i = 0; i < axisNames.Length; i++)
-            axis.Add(axisNames[i], 0f);
-
         // Init buttons
         pressed = new Dictionary<string, bool>();
         held = new Dictionary<string, bool>();
         released = new Dictionary<string, bool>();
-        // Populate buttons
-        for (int i = 0; i < buttonNames.Length; i++)
+
+        // For each player, store all axis
+        for (int p = 0; p < playersNames.Length; p++)
         {
-            pressed.Add(buttonNames[i], false);
-            held.Add(buttonNames[i], false);
-            released.Add(buttonNames[i], false);
+            // Populate axis
+            for (int a = 0; a < axisNames.Length; a++)
+                axis.Add(playersNames[p] + axisNames[a], 0f);
+
+            // Populate buttons
+            for (int b = 0; b < buttonsNames.Length; b++)
+            {
+                pressed.Add(playersNames[p] + buttonsNames[b], false);
+                held.Add(playersNames[p] + buttonsNames[b], false);
+                released.Add(playersNames[p] + buttonsNames[b], false);
+            }
         }
+
+        // Store keys for iteration in update
+        axisKeys = new List<string>(axis.Keys);
+        buttonsKeys = new List<string>(pressed.Keys);
     }
 
     private void Update ()
     {
         // Update axis
-        for (int i = 0; i < axisNames.Length; i++)
+        foreach (string k in axisKeys)
         {
-            string name = axisNames[i];
-            axis[name] = Input.GetAxis(name);
+            axis[k] = Input.GetAxis(k + controllerPrefix);
         }
 
         // Update buttons
-        for (int i = 0; i < buttonNames.Length; i++)
+        foreach (string k in buttonsKeys)
         {
-            string name = buttonNames[i];
-            pressed[name] = Input.GetButtonDown(name);
-            held[name] = Input.GetButton(name);
-            released[name] = Input.GetButtonUp(name);
+            pressed[k] = Input.GetButtonDown(k + controllerPrefix);
+            held[k] = Input.GetButton(k + controllerPrefix);
+            released[k] = Input.GetButtonUp(k + controllerPrefix);
         }
     }
 
-    public float GetAxis (Axis name) { return axis[name.ToString()]; }
     public float GetAxis (string name) { return axis[name]; }
-
-    public bool IsPressed (Button name) { return pressed[name.ToString()]; }
     public bool IsPressed (string name) { return pressed[name]; }
-
-    public bool IsHeld (Button name) { return held[name.ToString()]; }
     public bool IsHeld (string name) { return held[name]; }
-
-    public bool IsReleased (Button name) { return released[name.ToString()]; }
     public bool IsReleased (string name) { return released[name]; }
 
 }

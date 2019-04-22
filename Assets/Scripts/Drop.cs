@@ -24,6 +24,8 @@ public class Drop : MonoBehaviour
     protected ContactFilter2D contactFilter;
     protected Collider2D dropCollider;
 
+    protected GameManager GM;
+
     private void OnEnable()
     {
         alive = true;
@@ -37,6 +39,8 @@ public class Drop : MonoBehaviour
         
         contactFilter.layerMask = hittableLayers;
         contactFilter.useLayerMask = true;
+
+        GM = GameObject.Find("SCRIPTS").GetComponent<GameManager>();
     }
 
     void Update()
@@ -69,7 +73,8 @@ public class Drop : MonoBehaviour
                 switch (coll.tag)
                 {
                     case "Player":
-                        Debug.Log("player coin");
+                        Player.Players p = coll.gameObject.GetComponent<Player>().playerChoice;
+                        GM.ScorePoints(p, 15);
                         break;
 
                     default:

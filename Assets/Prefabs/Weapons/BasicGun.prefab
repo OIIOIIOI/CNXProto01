@@ -45,7 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   shotPrefab: {fileID: 2319366393285840508, guid: e7e641198105bd74cb346e6c06bdcda6,
     type: 3}
-  shotsPerSecond: 5
+  shotsPerSecond: 15
   burstShots: 1
   shotSpeed: 10
   shotSize: 2
@@ -53,8 +53,8 @@ MonoBehaviour:
     serializedVersion: 2
     rgba: 4294967295
   shotSpawnX: 0.6
-  shotSpawnY: 0
-  shotSpawnAccuracy: 0
-  directionAccuracy: 0.443
-  visualPower: 0.171
+  shotSpawnY: 0.5
+  shotSpawnAccuracy: 0.9
+  directionAccuracy: 0.75
+  visualPower: 0.15
   shotDamage: 1

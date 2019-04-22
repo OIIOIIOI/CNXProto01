@@ -9,12 +9,12 @@ using UnityEngine.UI;
 public class Player : MonoBehaviour
 {
 
-    public enum players {
-        Player1,
-        Player2
+    public enum Players {
+        P1,
+        P2
     };
 
-    public players playerNum = players.Player1;
+    public Players playerChoice = Players.P1;
     string playerPrefix;
 
     public float maxSpeed = 10f;
@@ -52,7 +52,7 @@ public class Player : MonoBehaviour
     void Start ()
     {
         nextShotTime = Time.time;
-        playerPrefix = (playerNum == players.Player1) ? "P1" : "P2";
+        playerPrefix = playerChoice.ToString();
     }
 
     void Update ()
@@ -63,7 +63,7 @@ public class Player : MonoBehaviour
             GroundedHorizontalMovement();
             GroundedVerticalMovement();
             // Jump
-            if (canJump && InputManager.Instance.IsHeld(playerPrefix + "Jump"))
+            if (canJump && InputManager.Instance.IsHeld(playerPrefix + InputManager.Buttons.Jump.ToString()))
             {
                 canJump = false;
                 moveVector.y = jumpSpeed;
@@ -77,7 +77,7 @@ public class Player : MonoBehaviour
         }
 
         // If shooting
-        if (InputManager.Instance.IsHeld(playerPrefix + "Fire"))
+        if (InputManager.Instance.IsHeld(playerPrefix + InputManager.Buttons.Fire.ToString()))
         {
             if (shootingCoroutine == null)
             {
@@ -102,7 +102,7 @@ public class Player : MonoBehaviour
         }
 
         // Reset jump
-        if (!canJump && !InputManager.Instance.IsHeld(playerPrefix + "Jump"))
+        if (!canJump && !InputManager.Instance.IsHeld(playerPrefix + InputManager.Buttons.Jump.ToString()))
             canJump = true;
     }
 
@@ -127,7 +127,7 @@ public class Player : MonoBehaviour
 
     public void GroundedHorizontalMovement ()
     {
-        float input = InputManager.Instance.GetAxis(playerPrefix + "HorizontalPad");
+        float input = InputManager.Instance.GetAxis(playerPrefix + InputManager.Axis.Horizontal.ToString());
         float desiredSpeed = input * maxSpeed;
         float ratio = (input != 0) ? acceleration : deceleration;
         moveVector.x = Mathf.MoveTowards(moveVector.x, desiredSpeed, ratio * Time.deltaTime);
@@ -145,7 +145,7 @@ public class Player : MonoBehaviour
 
     public void AirborneHorizontalMovement ()
     {
-        float input = InputManager.Instance.GetAxis(playerPrefix + "HorizontalPad");
+        float input = InputManager.Instance.GetAxis(playerPrefix + InputManager.Axis.Horizontal.ToString());
         float desiredSpeed = input * maxSpeed;
         float ratio = (input != 0) ? acceleration * airAccelerationRatio : deceleration * airDecelerationRatio;
         moveVector.x = Mathf.MoveTowards(moveVector.x, desiredSpeed, ratio * Time.deltaTime);
@@ -173,7 +173,7 @@ public class Player : MonoBehaviour
 
     protected IEnumerator Shoot ()
     {
-        while (InputManager.Instance.IsHeld(playerPrefix + "Fire"))
+        while (InputManager.Instance.IsHeld(playerPrefix + InputManager.Buttons.Fire.ToString()))
         {
             if (Time.time >= nextShotTime)
             {
